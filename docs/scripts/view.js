@@ -1,89 +1,76 @@
 const view = {
-    
-    displayUserData(name) {
 
-        document.getElementById('userName').innerHTML = name;
+  displayUserData(name) {
+    document.getElementById('userName').innerHTML = name;
+  },
 
-    },
+  viewDate(formattedFrom, formattedTo) {
+    document.getElementById('date').innerHTML = "Data from " + formattedFrom + " to " + formattedTo;
+  },
 
-    viewDate(formattedFrom,formattedTo) {
+  displayNumberofCalls(totalHits) {
+    document.getElementById('numberofCalls').innerHTML = totalHits;
+  },
 
-        document.getElementById('date').innerHTML = "Data from " + formattedFrom + " to " + formattedTo;
-        
-    },
+  displayNumberofChat(totalHits) {
+    document.getElementById('chatInteractionsNumber').innerHTML = totalHits;
+  },
 
-    displayNumberofCalls(totalHits) {
+  displayNumberofAbandoned(totalHits) {
+    document.getElementById('numberofAbandonedCalls').innerHTML = totalHits;
+  },
 
-        document.getElementById('numberofCalls').innerHTML = totalHits;
-    },
+  displayNumberofAnswered(totalHits) {
+    document.getElementById('numberofAnsweredCalls').innerHTML = totalHits;
+  },
 
-    displayNumberofChat(totalHits) {
+  displayNumberofVoiceOutbound(totalHits) {
+    document.getElementById('numberofOutbound').innerHTML = totalHits;
+  },
 
-        document.getElementById('chatInteractionsNumber').innerHTML = totalHits;
-    },
+  displayNumberofVoiceInbound(totalHits) {
+    document.getElementById('numberofInbound').innerHTML = totalHits;
+  },
 
-    displayNumberofAbandoned(totalHits) {
+  displayNumberofUsers(data) {
+    let agents = document.getElementById('agentsList');
 
-        document.getElementById('numberofAbandonedCalls').innerHTML = totalHits;
-    },
+    for (const results of data.results) {
+      let newOption = document.createElement('option');
+      let optionText = document.createTextNode(results.name);
+      newOption.appendChild(optionText);
+      newOption.setAttribute('value', results.id);
+      agents.appendChild(newOption);
+    }
+  },
 
-    displayNumberofAnswered(totalHits) {
-        
-        document.getElementById('numberofAnsweredCalls').innerHTML = totalHits;
-    },
 
-    displayNumberofVoiceOutbound(totalHits) {
-        
-        document.getElementById('numberofOutbound').innerHTML = totalHits;
-    },
-
-    displayNumberofVoiceInbound(totalHits) {
-        
-        document.getElementById('numberofInbound').innerHTML = totalHits;
-    },
-
-    displayNumberofUsers(data) {
-        let agents = document.getElementById('agentsList');
-
-        for (const results of data.results) {
-            let newOption = document.createElement('option');
-            let optionText = document.createTextNode(results.name);
-            newOption.appendChild(optionText);
-            newOption.setAttribute('value', results.id);
-            agents.appendChild(newOption);
-          }
-    },
-
-    
-    populateUsertable(results) {
-        let agents = document.getElementById('userTable');
-        let row = document.createElement("tr");
+  populateUsertable(results) {
+    let agents = document.getElementById('userTable');
+    let row = document.createElement("tr");
 
     for (const [key] of Object.entries(results)) {
-  
+
       let cell;
       let text = "";
       let cellText = "";
-  
-  
+
       if (key != "organizationPresenceId") {
-  
+
         if (key == "startTime") {
           text = results.startTime;
           text = text.replace("T", " ");
           text = text.replace("Z", "");
-          text = text.slice(0,19);
-  
+          text = text.slice(0, 19);
         }
-  
+
         if (key == "endTime") {
           text = results.endTime;
           text = text.replace("T", " ");
           text = text.replace("Z", "");
-          text = text.slice(0,19);
-  
+          text = text.slice(0, 19);
         }
-  
+
         if (key == "systemPresence") {
           text = results.systemPresence;
         }
@@ -93,14 +80,8 @@ const view = {
         row.appendChild(cell)
         agents.appendChild(row);
       }
-  
     }
-  
   }
-
-
-
-    
 
 }
 

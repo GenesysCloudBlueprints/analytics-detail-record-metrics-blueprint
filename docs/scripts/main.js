@@ -12,6 +12,8 @@ let interval;
 
 // Event Handler
 document.getElementById("agentsList").addEventListener("change", function () {
+  let table = document.getElementById("userTable");
+  table.innerHTML = "";
   let selectedUserId = agentsList.options[agentsList.selectedIndex].value;
   generateUserData(selectedUserId);
 }, false)
@@ -106,7 +108,7 @@ function getChatInteractions() {
     orderBy: "conversationStart",
     paging: {
       pageSize: "100",
-      pageNumber: 2
+      pageNumber: 1
     },
     segmentFilters: [{
       type: "and",
