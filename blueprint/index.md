@@ -63,7 +63,7 @@ A recommended Genesys Cloud role for the solutions engineer is Master Admin. For
 
 1. Make sure that you are using the updated Node.js version. 
 
-  * Open the command line in the directory where you want to save the project. After  and install the latest version. Type `npm install -g n latest`.
+  * Open the command line in the directory where you want to save the project and install the latest version. Type `npm install -g n latest`.
 
 2. Go to the directory where the files are located and install node modules. Type `npm install`  
 3. Run the server locally, type `node index.js` in the command line. Go to your browser and open http://localhost:3000/ to check if the app is successfully working on your localhost.
