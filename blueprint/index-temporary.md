@@ -4,7 +4,7 @@ author: jenissa.barrera
 indextype: blueprint
 icon: blueprint
 image: images/flowchart.png
-category: 
+category: 11
 summary: |
   This Genesys Cloud Developer Blueprint provides a sample on how to use Detailed Records Metrics using the Analytics API. 
 ---
@@ -31,7 +31,7 @@ Implementing this solution requires experience in several areas or a willingness
 
 * **Genesys Cloud Platform API SDK** - Client libraries used to simply integrate to Genesys Cloud. This SDK is used for getting the necessary historical data of agents and interactions.
 
-* **Javascript SDK** - A JavaScript library to interface with the Genesys Cloud Platform API.
+* **Javascript SDK** - A JavaScript library to interface with the Genesys Cloud Platform API, see [Javascript SDK](https://www.npmjs.com/package/purecloud-platform-client-v2).
 
 
 
