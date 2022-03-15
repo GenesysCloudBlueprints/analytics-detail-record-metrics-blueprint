@@ -4,7 +4,7 @@ const configuration = {
     // Token Implicit Grant Client ID
     clientID: 'your-client-id-here',
 
-    redirectUri: 'http://localhost:3000/',
+    redirectUri: 'http://localhost:3000',
 
     genesysCloud: {
         // Genesys Cloud region

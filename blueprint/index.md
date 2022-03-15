@@ -54,10 +54,12 @@ A recommended Genesys Cloud role for the solutions engineer is Master Admin. For
 
 ### Generate an OAuth Client Token Implicit Grant in Genesys Cloud
 1. Click this link and follow the step by step procedure on how to [Create an OAuth Client Token Implicit Grant](https://help.mypurecloud.com/articles/create-an-oauth-client/). 
-2. Once the OAuth is successfully created. Go to Client Details. Make sure to add `http://localhost:3000` in the Authorize redirect URIs section. 
+2. Make sure to set the scope of the OAuth Client Credentials to `analytics:readonly` and `users:readyonly`
+![Scope](images/scope.png "Scope")
+3. Once the OAuth is successfully created. Go to Client Details. Make sure to add `http://localhost:3000` in the Authorize redirect URIs section. 
  ![Client Details Authorize Redirect URI](images/client-details-authorize-redirect-uri.png "Client Details Authorize Redirect URI")
-3. In the downloaded code sample, open the [config.js file](https://github.com/jenissabarrera/generate-detail-record-metrics-blueprint/blob/main/docs/scripts/config.js). Add the clientID you generated. 
-4. Specify the region of your Genesys Cloud organization e.g `mypurecloud.com, mypurecloud.au`.
+4. In the downloaded code sample, open the [config.js file](https://github.com/jenissabarrera/generate-detail-record-metrics-blueprint/blob/main/docs/scripts/config.js). Add the clientID you generated. 
+5. Specify the region of your Genesys Cloud organization e.g `mypurecloud.com, mypurecloud.au`.
 
 ### Host and run the Nodejs.app server
 

@@ -1,2 +1,2 @@
 # analytics-detail-record-metrics-blueprint
-This Genesys Cloud Developer Blueprint demonstrates how to retrieve conversation data via the analytics API
+This Genesys Cloud Developer Blueprint explains how to get actual data that user can use to see the efficiency of their contact centers that focuses on users and conversation data. Using this app, users can see the historical details of their contact centers on a dashboard such as Number of calls, Agent Details, Number of Interactions,etc. This app can serve as a sample dashboard for users that later on, they can modify to serve their organization's needs.
