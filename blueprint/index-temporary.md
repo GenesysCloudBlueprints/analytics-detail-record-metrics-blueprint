@@ -6,7 +6,7 @@ icon: blueprint
 image: images/flowchart.png
 category: 11
 summary: |
-  This Genesys Cloud Developer Blueprint shows how to use the Analytics Detailed Record Metric app to analyze the performance of a contact center. 
+This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data and analyzes the efficiency of a contact center. 
 ---
 
 This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data and analyzes the efficiency of a contact center. By using this app, administrators can gain insights on agents and interaction data. The app also provides a dashboard that shows historical details such as Number of calls, Agent Details, Number of Interactions, and so on. The Analytics Detailed Record Metric app can also serve as a sample dashboard that can also be customized to show other metrics.  
