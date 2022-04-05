@@ -15,7 +15,7 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 
 ## Solution components
 
-* **Analytics Query Builder** - A user interface-based developer tool that helps create analytics queries. Based on the chosen analytics criteria, the tool generates an analytics query that it runs against the Genesys Cloud Analytics API to return a JSON query result (for author: In the form of a JSON file?) from the Genesys Cloud organization. You can later use this JSON query in your applications.
+* **Analytics Query Builder** - A user interface-based developer tool that helps create analytics queries. Based on the chosen analytics criteria, the tool generates an analytics query that it runs against the Genesys Cloud Analytics API to return a JSON query result from the Genesys Cloud organization. You can later use this JSON query in your applications.
 * **Analytics Detailed Record Metric app** - Audit-style dashboard of records that presents granular details of agent and customer interactions.
 
 ### Software development kits (SDKs)
@@ -53,7 +53,7 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 2. Create an OAuth client that uses the Token Implicit Grant (Browser) grant type. For more information, see [Create an OAuth client](https://help.mypurecloud.com/?p=188023 "Opens the Create an OAuth client article") in the Genesys Cloud Resource Center.
 3. Add your hosted site to the **Authorize Redirect URIs** box. For example, `http://localhost:3000`. 
  ![Client Details Authorize Redirect URI](images/client-details-authorize-redirect-uri.png "Client Details Authorize Redirect URI")
-4.Modify the [config.js file](https://github.com/jenissabarrera/generate-detail-record-metrics-blueprint/blob/main/docs/scripts/config.js), file with the Client ID for the OAuth client. The Client ID is passed into `loginImplicitGrant`.
+4.Modify the [config.js file](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint/blob/main/src/scripts/config.js), file with the Client ID for the OAuth client. The Client ID is passed into `loginImplicitGrant`.
 5. Specify the region of your Genesys Cloud organization. For example, `mypurecloud.com, mypurecloud.au`.
 
 ### Host and run the Nodejs.app server locally
@@ -85,6 +85,7 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 ### Test the solution
 
 1. From the Genesys Cloud **Apps** menu, open the Analytics Detailed Record Metric app. If you renamed the app, look for its new name. 
+  ![Genesys Cloud Apps](images/genesys-cloud-apps.PNG "Genesys Cloud Apps")
 2. From the Analytics Detailed Record Metric app dashboard, review basic conversation details such as number of chats, calls, abandoned calls, and other details for the date range you specify. 
   ![Dashboard Conversation Detail](images/dashboard-conversation-details.PNG "Dashboard Conversation Detail")
 3. From the **Select Agent** field, choose the name of the agent whose details you require to see. The agent performance details appear. 
@@ -95,3 +96,4 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 * [Genesys Cloud Developer Center](https://developer.genesys.cloud/ "Goes to the main page of the Genesys Cloud Developer Center)
 * [Analytics Query Builder developer tool quick start](https://developer.genesys.cloud/guides/quickstarts/developer-tools-analytics-query "Goes to the Analytics Query Builder Dev Tool page)
 * [Analytics Overview](https://developer.genesys.cloud/api/rest/v2/analytics/overview "Goes to the Analytics Overview page)
+* [Analytics GitHub Repository] (https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint) "Goes to the analytics-detail-record-metrics-blueprint repository in GitHub)
