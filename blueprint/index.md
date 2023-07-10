@@ -77,7 +77,7 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 5. Set the toggle to **Active**.
  ![Rename the Integration](images/rename-integration.PNG "Rename the Integration")
 6. Click the **Configuration** tab.
-7. Change the **Application URL** value to `http://localhost:3000/?conversationid={{pcConversationId}}&language={{pcLangTag}}`. 
+7. Change the **Application URL** value to `http://localhost:3000/?conversationid={{gcConversationId}}&language={{gcLangTag}}`. 
 8. Under **Group Filtering**, select the groups that contain the users of this app. 
    ![Change URL and group value](images/change-url-and-group.PNG "Change URL and group value")
 9. Click **Save**.
