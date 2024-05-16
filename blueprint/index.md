@@ -6,8 +6,15 @@ icon: blueprint
 image: images/flowchart.png
 category: 11
 summary: |
-  This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. 
+This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. 
 ---
+:::{"alert":"primary","title":"About Genesys Cloud Blueprints","autoCollapse":false} 
+Genesys Cloud blueprints were built to help you jump-start building an application or integrating with a third-party partner. 
+Blueprints are meant to outline how to build and deploy your solutions, not a production-ready turn-key solution.
+ 
+For more details on Genesys Cloud blueprint support and practices 
+please see our Genesys Cloud blueprint [FAQ](https://developer.genesys.cloud/blueprints/faq)sheet.
+:::
 
 This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. By using this app, administrators can gain insights on agents and interaction data. The app also provides a dashboard that shows historical details such as Number of calls, Agent Details, Number of Interactions, and so on. The Analytics Detailed Record Metric app can also serve as a sample dashboard that can also be customized to show other metrics.  
 
