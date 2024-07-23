@@ -9,6 +9,10 @@ summary: |
   This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. 
 ---
 
+:::{"alert":"primary","title":"About Genesys Cloud Blueprints","autoCollapse":false} Genesys Cloud blueprints were built to help you jump-start building an application or integrating with a third-party partner. Blueprints are meant to outline how to build and deploy your solutions, not a production-ready turn-key solution.
+
+For more details on Genesys Cloud blueprint support and practices, see our Genesys Cloud blueprint FAQ sheet. :::
+
 This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. By using this app, administrators can gain insights on agents and interaction data. The app also provides a dashboard that shows historical details such as Number of calls, Agent Details, Number of Interactions, and so on. The Analytics Detailed Record Metric app can also serve as a sample dashboard that can also be customized to show other metrics.  
 
 ![Flowchart](images/flowchart.png "Flowchart")
@@ -33,14 +37,14 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 
 ### Genesys Cloud account
 
-* A Genesys Cloud license. For more information, see [Genesys Cloud pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page"] on the Genesys website.
+* A Genesys Cloud license. For more information, see [Genesys Cloud pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page") on the Genesys website.
 * (Recommended) The Master Admin role in Genesys Cloud. For more information, see [Roles and permissions overview](https://help.mypurecloud.com/?p=24360 "Opens the Roles and permissions overview article") in the Genesys Cloud Resource Center.
 
 ## Implementation steps
-* [Clone the GitHub repository](#clone-the-repository-containing-the-project-files "Goes to the Clone the GitHub repository section")
-* [Generate an OAuth token to access Genesys Cloud data](#generate-an-oauth-client-token-implicit-grant-in-genesys-cloud "Goes to the Generate an OAuth token to access Genesys Cloud data section")
-* [Host and run the Nodejs.app server locally](#host-and-run-the-nodejs.app-server "Goes to the Host and run the Nodejs.app server locally section")
-* [Install and activate the Analytics Detailed Record Metrics App in your Genesys Cloud Platform](#install-and-activate-the-analytics-detailed-record-metrics-app-in-your-genesys-cloud-platform "Goes to app activation and installation inside Genesys Cloud section")
+* [Clone the GitHub repository](#clone-the-github-repository "Goes to the Clone the GitHub repository section")
+* [Create an OAuth client in Genesys Cloud](#create-an-oauth-client-in-genesys-cloud "Goes to the Create an OAuth client in Genesys Cloud section")
+* [Host and run the Nodejs.app server locally](#host-and-run-the-nodejs-server-locally "Goes to the Host and run the Nodejs.app server locally section")
+* [Install and activate the Analytics Detailed Record Metric app in your Genesys Cloud organization](#install-and-activate-the-app-in-your-genesys-cloud-organization "Goes to app activation and installation inside Genesys Cloud section")
 * [Test the solution](#test-the-solution  "Goes to the Test the solution section")
 
 ### Clone the GitHub repository 
@@ -53,10 +57,10 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 2. Create an OAuth client that uses the Token Implicit Grant (Browser) grant type. For more information, see [Create an OAuth client](https://help.mypurecloud.com/?p=188023 "Opens the Create an OAuth client article") in the Genesys Cloud Resource Center.
 3. Add your hosted site to the **Authorize Redirect URIs** box. For example, `http://localhost:3000`. 
  ![Client Details Authorize Redirect URI](images/client-details-authorize-redirect-uri.png "Client Details Authorize Redirect URI")
-4.Modify the [config.js file](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint/blob/main/src/scripts/config.js), file with the Client ID for the OAuth client. The Client ID is passed into `loginImplicitGrant`.
+4. Modify the [config.js file](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint/blob/main/src/scripts/config.js), file with the Client ID for the OAuth client. The Client ID is passed into `loginImplicitGrant`.
 5. Specify the region of your Genesys Cloud organization. For example, `mypurecloud.com, mypurecloud.au`.
 
-### Host and run the Nodejs.app server locally
+### Host and run the Nodejs server locally
 
 :::primary
 **Note**: This blueprint solution requires the latest Node.js version.
@@ -67,7 +71,7 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
 3. To run the server locally, from a command line, type `node index.js`. 
 4. To check if the app is successfully working on your localhost, use your browser window to go to http://localhost:3000/.
 
-### Install and activate the Analytics Detailed Record Metric app in your Genesys Cloud organization
+### Install and activate the app in your Genesys Cloud organization
 
 1. Log in to your Genesys Cloud organization and go to **Admin** > **Integration**. 
 2. Search for **Client Application** and click **Install**. 
@@ -90,10 +94,9 @@ This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed R
   ![Dashboard Conversation Detail](images/dashboard-conversation-details.PNG "Dashboard Conversation Detail")
 3. From the **Select Agent** field, choose the name of the agent whose details you require to see. The agent performance details appear. 
    ![Dashboard User Detail](images/user-details.PNG "Dashboard User Detail")
-4. To modify the query, use the [Analytics query builder](https://developer.genesys.cloud/developer-tools/#/analytics-query-builder "Opens the Developer Tools page") and generate the body and the date format for each query. 
 
 ## Additional resources
-* [Genesys Cloud Developer Center](https://developer.genesys.cloud/ "Goes to the main page of the Genesys Cloud Developer Center)
-* [Analytics Query Builder developer tool quick start](https://developer.genesys.cloud/guides/quickstarts/developer-tools-analytics-query "Goes to the Analytics Query Builder Dev Tool page)
-* [Analytics Overview](https://developer.genesys.cloud/api/rest/v2/analytics/overview "Goes to the Analytics Overview page)
-* [Analytics GitHub Repository] (https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint) "Goes to the analytics-detail-record-metrics-blueprint repository in GitHub)
+* [Genesys Cloud Developer Center](https://developer.genesys.cloud/ "Goes to the main page of the Genesys Cloud Developer Center")
+* [Analytics Query Builder developer tool quick start](https://developer.genesys.cloud/guides/quickstarts/developer-tools-analytics-query "Goes to the Analytics Query Builder Dev Tool page")
+* [Analytics Overview](https://developer.genesys.cloud/api/rest/v2/analytics/overview "Goes to the Analytics Overview page")
+* [Analytics GitHub Repository](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint "Goes to the analytics-detail-record-metrics-blueprint repository in GitHub")
