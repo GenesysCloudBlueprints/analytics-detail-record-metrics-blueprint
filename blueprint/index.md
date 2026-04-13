@@ -1,102 +1,149 @@
----
-title: Use the Analytics Detailed Record Metric app to analyze the performance of your contact center
-author: jenissa.barrera
-indextype: blueprint
-icon: blueprint
-image: images/flowchart.png
-category: 11
-summary: |
-  This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. 
----
 
-:::{"alert":"primary","title":"About Genesys Cloud Blueprints","autoCollapse":false} Genesys Cloud blueprints were built to help you jump-start building an application or integrating with a third-party partner. Blueprints are meant to outline how to build and deploy your solutions, not a production-ready turn-key solution.
+:::{\"alert\":\"primary\",\"title\":\"About Genesys Cloud Blueprints\",\"autoCollapse\":false} Genesys Cloud blueprints are intended to help you jump-start an integration or application. They show one practical implementation path and are not production-ready, turn-key solutions.
 
-For more details on Genesys Cloud blueprint support and practices, see our Genesys Cloud blueprint FAQ sheet. :::
+For more details on Genesys Cloud blueprint support and practices, see the Genesys Cloud blueprint FAQ. :::
 
-This Genesys Cloud Developer Blueprint solution provides an Analytics Detailed Record Metric app that gathers performance data via the analytics API and enables an admin or supervisor to analyze the efficiency of their contact center. By using this app, administrators can gain insights on agents and interaction data. The app also provides a dashboard that shows historical details such as Number of calls, Agent Details, Number of Interactions, and so on. The Analytics Detailed Record Metric app can also serve as a sample dashboard that can also be customized to show other metrics.  
+This blueprint provides an Analytics Detailed Record Metric app that uses the Genesys Cloud Platform API to retrieve historical analytics and agent presence information. The current implementation is a lightweight TypeScript single-page app built with Vite. It authenticates users with PKCE, loads summary interaction metrics for the last 30 days, and lets supervisors drill into agent presence details from a drop-down list.
+
+The dashboard is useful both as a working sample and as a starting point for more specialized reporting experiences. You can extend the same query patterns to surface additional metrics, add filters, or tailor the layout for a specific operational workflow.
 
 ![Flowchart](images/flowchart.png "Flowchart")
 
+## What the app does
+
+When a user opens the app, it performs the following sequence:
+
+1. Authenticates the user against Genesys Cloud with `loginPKCEGrant`.
+2. Loads the signed-in user's name for the dashboard header.
+3. Queries conversation analytics to display:
+   - chat interactions
+   - total voice calls
+   - abandoned voice calls
+   - answered voice calls
+   - inbound voice interactions
+   - outbound voice interactions
+4. Loads a list of users into the **Select Agent** drop-down.
+5. Retrieves presence detail rows for the selected agent over the same date interval.
+
 ## Solution components
 
-* **Analytics Query Builder** - A user interface-based developer tool that helps create analytics queries. Based on the chosen analytics criteria, the tool generates an analytics query that it runs against the Genesys Cloud Analytics API to return a JSON query result from the Genesys Cloud organization. You can later use this JSON query in your applications.
-* **Analytics Detailed Record Metric app** - Audit-style dashboard of records that presents granular details of agent and customer interactions.
-
-### Software development kits (SDKs)
-
-* **Genesys Cloud Platform API SDK** - Client libraries used to simplify application integration with Genesys Cloud by handling low-level HTTP requests. We use the Genesys Cloud Platform API SDK to retrieve the necessary historical data about agent and customer interactions.
-
-* **Platform API Client SDK-JavaScript** - A JavaScript library used to interface with the Genesys Cloud Platform API.
-
+* **Analytics Detailed Record Metric app** - A browser-based dashboard that displays conversation and agent presence data from Genesys Cloud analytics endpoints.
+* **Vite development and build tooling** - Provides a modern local development server on port `3000` and production bundling for the front-end application.
+* **Genesys Cloud Platform API SDK for JavaScript** - Handles authentication and API requests to the Genesys Cloud Platform API.
 
 ## Prerequisites
 
-- Administrator-level knowledge of Genesys Cloud
-- Experience using the Genesys Cloud Platform API 
+Before you begin, make sure you have the following:
 
+* A Genesys Cloud organization and an account with permissions to create OAuth clients and install integrations.
+* Working knowledge of Genesys Cloud administration and Platform API concepts.
+* Node.js `18` or later.
 
-### Genesys Cloud account
+### Genesys Cloud access
 
-* A Genesys Cloud license. For more information, see [Genesys Cloud pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page") on the Genesys website.
-* (Recommended) The Master Admin role in Genesys Cloud. For more information, see [Roles and permissions overview](https://help.mypurecloud.com/?p=24360 "Opens the Roles and permissions overview article") in the Genesys Cloud Resource Center.
+* A valid Genesys Cloud license. For more information, see [Genesys Cloud pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page").
+* A role with sufficient administrative permissions. The Master Admin role is recommended. For more information, see [Roles and permissions overview](https://help.genesys.cloud/articles/about-roles-permissions/ "Opens the Roles and permissions overview article").
 
 ## Implementation steps
+
 * [Clone the GitHub repository](#clone-the-github-repository "Goes to the Clone the GitHub repository section")
 * [Create an OAuth client in Genesys Cloud](#create-an-oauth-client-in-genesys-cloud "Goes to the Create an OAuth client in Genesys Cloud section")
-* [Host and run the Nodejs.app server locally](#host-and-run-the-nodejs-server-locally "Goes to the Host and run the Nodejs.app server locally section")
-* [Install and activate the Analytics Detailed Record Metric app in your Genesys Cloud organization](#install-and-activate-the-app-in-your-genesys-cloud-organization "Goes to app activation and installation inside Genesys Cloud section")
-* [Test the solution](#test-the-solution  "Goes to the Test the solution section")
+* [Configure the application](#configure-the-application "Goes to the Configure the application section")
+* [Run the app locally with Vite](#run-the-app-locally-with-vite "Goes to the Run the app locally with Vite section")
+* [Install and activate the app in your Genesys Cloud organization](#install-and-activate-the-app-in-your-genesys-cloud-organization "Goes to the Install and activate the app in your Genesys Cloud organization section")
+* [Validate the solution](#validate-the-solution "Goes to the Validate the solution section")
 
-### Clone the GitHub repository 
+### Clone the GitHub repository
 
-* Clone the [analytics-detail-record-metrics-blueprint](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint "analytics-detail-record-metrics-blueprint repository in GitHub") to your local machine.
+Clone the [analytics-detail-record-metrics-blueprint](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint "analytics-detail-record-metrics-blueprint repository in GitHub") repository to your local machine.
 
 ### Create an OAuth client in Genesys Cloud
 
-1. Log in to your Genesys Cloud organization.
-2. Create an OAuth client that uses the Token Implicit Grant (Browser) grant type. For more information, see [Create an OAuth client](https://help.mypurecloud.com/?p=188023 "Opens the Create an OAuth client article") in the Genesys Cloud Resource Center.
-3. Add your hosted site to the **Authorize Redirect URIs** box. For example, `http://localhost:3000`. 
- ![Client Details Authorize Redirect URI](images/client-details-authorize-redirect-uri.png "Client Details Authorize Redirect URI")
-4. Modify the [config.js file](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint/blob/main/src/scripts/config.js), file with the Client ID for the OAuth client. The Client ID is passed into `loginImplicitGrant`.
-5. Specify the region of your Genesys Cloud organization. For example, `mypurecloud.com, mypurecloud.au`.
+1. Sign in to your Genesys Cloud organization.
+2. Create an OAuth client for browser-based authentication and configure it for PKCE-based sign-in.
+3. Add your local redirect URI to the client's authorized redirect URIs. For local development, use `http://localhost:3000/`.
+4. Record the client ID that Genesys Cloud generates for the OAuth client.
+5. Note the region of your organization, such as `mypurecloud.com` or `mypurecloud.au`.
 
-### Host and run the Nodejs server locally
+![Client Details Authorize Redirect URI](images/client-details-authorize-redirect-uri.png "Client Details Authorize Redirect URI")
 
-:::primary
-**Note**: This blueprint solution requires the latest Node.js version.
-:::
+### Configure the application
 
-1. To install the latest Node.js version, from a command line, navigate to the directory where you want to save the project and type `npm install -g n latest`.
-2. To install the node modules, from a command line, navigate to the directory where the files are and type `npm install`.  
-3. To run the server locally, from a command line, type `node index.js`. 
-4. To check if the app is successfully working on your localhost, use your browser window to go to http://localhost:3000/.
+Update `src/scripts/config.ts` with values for your organization:
+
+* `clientID` - The OAuth client ID you created in Genesys Cloud.
+* `redirectUri` - The redirect URI registered on the OAuth client, such as `http://localhost:3000/`.
+* `genesysCloud.region` - The Genesys Cloud region for your organization.
+
+The application reads these values at startup before it initializes the Genesys Cloud SDK.
+
+### Run the app locally with Vite
+
+1. Open a terminal and change to the `src` directory.
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open `http://localhost:3000/` in your browser.
+
+For a production-style build, run:
+
+```bash
+npm run build
+```
+
+To preview the built output locally, run:
+
+```bash
+npm run preview
+```
 
 ### Install and activate the app in your Genesys Cloud organization
 
-1. Log in to your Genesys Cloud organization and go to **Admin** > **Integration**. 
-2. Search for **Client Application** and click **Install**. 
+1. In Genesys Cloud, go to **Admin** > **Integrations**.
+2. Search for **Client Application** and click **Install**.
+3. Open the **Details** tab, rename the integration if needed, and set it to **Active**.
+4. Open the **Configuration** tab.
+5. Set **Application URL** to your hosted app URL. For local development, use `http://localhost:3000/`.
+6. Under **Group Filtering**, select the groups that should have access to the app.
+7. Save the integration.
+
+If you want to preserve the embedded-app URL pattern used by older revisions of this blueprint, you can append query parameters such as `?conversationid={{gcConversationId}}&language={{gcLangTag}}`. The current TypeScript implementation does not require those parameters.
+
 ![Install Client Application](images/client-app-install.png "Install Client Application")
-3. Click the **Details** tab.
-4. Rename the integration to a preferred name.
-5. Set the toggle to **Active**.
- ![Rename the Integration](images/rename-integration.PNG "Rename the Integration")
-6. Click the **Configuration** tab.
-7. Change the **Application URL** value to `http://localhost:3000/?conversationid={{gcConversationId}}&language={{gcLangTag}}`. 
-8. Under **Group Filtering**, select the groups that contain the users of this app. 
-   ![Change URL and group value](images/change-url-and-group.PNG "Change URL and group value")
-9. Click **Save**.
 
-### Test the solution
+### Validate the solution
 
-1. From the Genesys Cloud **Apps** menu, open the Analytics Detailed Record Metric app. If you renamed the app, look for its new name. 
-  ![Genesys Cloud Apps](images/genesys-cloud-apps.PNG "Genesys Cloud Apps")
-2. From the Analytics Detailed Record Metric app dashboard, review basic conversation details such as number of chats, calls, abandoned calls, and other details for the date range you specify. 
-  ![Dashboard Conversation Detail](images/dashboard-conversation-details.PNG "Dashboard Conversation Detail")
-3. From the **Select Agent** field, choose the name of the agent whose details you require to see. The agent performance details appear. 
-   ![Dashboard User Detail](images/user-details.PNG "Dashboard User Detail")
+1. Launch the app from the Genesys Cloud **Apps** menu.
+2. Sign in when prompted.
+3. Confirm that the dashboard loads the signed-in user name and a date range for the last 30 days.
+4. Verify that the summary cards show analytics values for chat, calls, abandoned calls, answered calls, inbound voice, and outbound voice.
+5. Select an agent from **Select Agent** and verify that presence records populate in the details table.
+
+## Project structure
+
+The current implementation is centered around a small front-end codebase in `src`:
+
+* `src/index.html` - Dashboard markup and the module entry point.
+* `src/scripts/main.ts` - Authentication, analytics queries, and application initialization.
+* `src/scripts/view.ts` - DOM update helpers for metrics, user data, and presence rows.
+* `src/scripts/config.ts` - Local configuration for the OAuth client and Genesys Cloud region.
+* `src/vite.config.ts` - Vite development server settings and SDK path aliasing.
+* `src/tsconfig.json` - TypeScript compiler configuration.
 
 ## Additional resources
+
 * [Genesys Cloud Developer Center](https://developer.genesys.cloud/ "Goes to the main page of the Genesys Cloud Developer Center")
-* [Analytics Query Builder developer tool quick start](https://developer.genesys.cloud/guides/quickstarts/developer-tools-analytics-query "Goes to the Analytics Query Builder Dev Tool page")
 * [Analytics Overview](https://developer.genesys.cloud/api/rest/v2/analytics/overview "Goes to the Analytics Overview page")
+* [Genesys Cloud Platform API SDK for JavaScript](https://github.com/MyPureCloud/platform-client-sdk-javascript "Goes to the JavaScript SDK repository")
+* [Vite Documentation](https://vite.dev/ "Goes to the Vite documentation")
+* [TypeScript Documentation](https://www.typescriptlang.org/docs/ "Goes to the TypeScript documentation")
 * [Analytics GitHub Repository](https://github.com/GenesysCloudBlueprints/analytics-detail-record-metrics-blueprint "Goes to the analytics-detail-record-metrics-blueprint repository in GitHub")

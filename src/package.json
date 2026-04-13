@@ -1,7 +1,24 @@
 {
+  "name": "analytics-detailed-record-metric-app",
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "bulma": "^0.9.3",
-    "express": "^4.17.1",
-    "purecloud-platform-client-v2": "^124.0.0"
+    "bulma": "1.0.4",
+    "express": "4.22.1",
+    "purecloud-platform-client-v2": "249.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
   }
 }
