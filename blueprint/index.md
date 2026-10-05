@@ -113,8 +113,9 @@ npm run preview
 3. Open the **Details** tab, rename the integration if needed, and set it to **Active**.
 4. Open the **Configuration** tab.
 5. Set **Application URL** to your hosted app URL. For local development, use `http://localhost:3000/`.
-6. Under **Group Filtering**, select the groups that should have access to the app.
-7. Save the integration.
+6. Add `allow-popups` in the **Iframe Sandbox Options**.
+7. Under **Group Filtering**, select the groups that should have access to the app.
+8. Save the integration.
 
 If you want to preserve the embedded-app URL pattern used by older revisions of this blueprint, you can append query parameters such as `?conversationid={{gcConversationId}}&language={{gcLangTag}}`. The current TypeScript implementation does not require those parameters.
 
@@ -123,7 +124,7 @@ If you want to preserve the embedded-app URL pattern used by older revisions of 
 ### Validate the solution
 
 1. Launch the app from the Genesys Cloud **Apps** menu.
-2. Sign in when prompted.
+2. Click the **Sign in** button. Make sure your browser allows popups.
 3. Confirm that the dashboard loads the signed-in user name and a date range for the last 30 days.
 4. Verify that the summary cards show analytics values for chat, calls, abandoned calls, answered calls, inbound voice, and outbound voice.
 5. Select an agent from **Select Agent** and verify that presence records populate in the details table.
