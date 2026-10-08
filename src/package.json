@@ -14,7 +14,7 @@
   "dependencies": {
     "bulma": "1.0.4",
     "express": "4.22.1",
-    "purecloud-platform-client-v2": "249.1.0"
+    "purecloud-platform-client-v2": "263.2.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
